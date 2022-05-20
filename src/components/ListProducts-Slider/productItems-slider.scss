@@ -1,0 +1,17 @@
+.productItems-slider {
+    .swiper-button-prev {
+        color: gray;
+        opacity: 0.3;
+    }
+    .swiper-button-next {
+        color: gray;
+        opacity: 0.3;
+
+    }
+    &:hover .swiper-button-prev {
+        opacity: 1;
+    }
+    &:hover .swiper-button-next {
+        opacity: 1;
+    }
+}
