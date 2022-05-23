@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
-        <Navbar bg='dark' variant='dark' expand='md' fixed='top' >
+        <Navbar bg='dark' variant='dark' expand='md' fixed='top'>
             <Container>
                 <Navbar.Brand as={Link} to="/">
                     <img className="opacity-100" src={logo} 
@@ -27,7 +27,7 @@ const Header = () => {
                         <Nav.Link className="text-white" href="#search">
                             <BsSearch fontSize='20px' bg='light'/>
                         </Nav.Link>
-                        <Nav.Link className="text-white" href="#account">
+                        <Nav.Link className="text-white" as={Link} to="/cart" >
                             <BsCart fontSize='20px'/>
                         </Nav.Link>
                     </Nav>

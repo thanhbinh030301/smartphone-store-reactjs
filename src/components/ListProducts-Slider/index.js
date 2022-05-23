@@ -14,65 +14,8 @@ import './productItems-slider.scss'
 
 
 const ListProductsSlider = () => {
-    // const settings = {
-    //     infinite: true,
-    //     speed: 500,
-    //     slidesToShow: 6,
-    //     slidesToScroll: 5,
-    //     initialSlide: 0,
-    //     responsive: [
-    //         {
-    //           breakpoint: 1024,
-    //           settings: {
-    //             slidesToShow: 3,
-    //             slidesToScroll: 3,
-    //             infinite: true
-    //           }
-    //         },
-    //         {
-    //           breakpoint: 600,
-    //           settings: 'unslick'
-    //         },
-    //         {
-    //           breakpoint: 480,
-    //           settings: 'unslick'
-    //         }
-    //       ]
-    //   };
     return (
         <Container>
-            {/* <h1 style={{paddingTop:"45px"}} className="text-center">Iphone</h1>  
-            <Row className='hi'>
-                <Slider {...settings}>
-                    <Col style = {{width: '13.7em'}} className="p-2">
-                        <ProductItem  />
-                    </Col>     
-                    <Col style = {{width: '13.7em'}} className="p-2">
-                        <ProductItem />
-                    </Col>     
-                    <Col style = {{width: '13.7em'}} className="p-2">
-                        <ProductItem />
-                    </Col>     
-                    <Col style = {{width: '13.7em'}} className="p-2">
-                        <ProductItem />
-                    </Col>     
-                    <Col style = {{width: '13.7em'}} className="p-2">
-                        <ProductItem />
-                    </Col>     
-                    <Col style = {{width: '13.7em'}} className="p-2">
-                        <ProductItem />
-                    </Col>   
-                    <Col style = {{width: '13.7em'}} className="p-2">
-                        <ProductItem />
-                    </Col>   
-                    <Col style = {{width: '13.7em'}} className="p-2">
-                        <ProductItem />
-                    </Col>   
-                    <Col style = {{width: '13.7em'}} className="p-2">
-                        <ProductItem />
-                    </Col>   
-                </Slider>  
-            </Row> */}
             <h1 style={{padding:"45px"}} className="text-center">Iphone</h1> 
             <Swiper
             breakpoints={{
@@ -82,7 +25,6 @@ const ListProductsSlider = () => {
                 800: {
                   slidesPerView: 4,
                 },
-                // when window width is >= 768px
                 1000: {
                   slidesPerView: 5,
                 },

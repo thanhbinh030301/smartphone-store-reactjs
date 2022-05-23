@@ -4,8 +4,8 @@ import ProductItem from "../ProductItem";
 
 const ListProducts = () => {
     return (
-        <Container className="wrap-container d-flex mt-4">
-            <Row lg={5} md={4} sm={2} >
+        <Container className="wrap-container d-flex mt-4 p-4">
+            <Row xl={5} lg={4} md={3} xs={2} >
                 <Col>
                     <ProductItem/>
                 </Col>
