@@ -11,7 +11,7 @@ const ProductItem = () => {
                     Giá từ 12000000đ
                 </Card.Text>
                 <Link to = "/product">
-                    <Button variant="primary" >Mua ngay</Button>
+                    <Button>Mua ngay</Button>
                 </Link>
             </Card.Body>
         </Card>

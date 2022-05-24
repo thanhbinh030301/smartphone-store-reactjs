@@ -9,10 +9,10 @@ const ProductInfo = () =>{
         setquantity(e.target.value)
     }
     return(
-        <Container style={{marginTop:'58px'}}>
+        <Container>
             {/* Title and price */}
             <Row>
-                <h2 className="mt-4">Iphone 12</h2>
+                <h2>Iphone 12</h2>
                 <p>
                     <span className="old-price">24.000.000 ₫</span>
                     <span className="new-price">19.000.000 ₫</span>

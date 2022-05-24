@@ -1,7 +1,6 @@
 import React from 'react'
-import Filter from '../components/Filter'
+import Footer from '../components/Footer'
 import Header from '../components/Header'
-import ListProducts from '../components/ListProducts'
 import ListProductsSlider from '../components/ListProducts-Slider'
 import Slider from '../components/Slider'
 
@@ -12,9 +11,9 @@ const Home = () => {
         <div>
             <Header/>
             <Slider/>
-            <Filter/>
-            <ListProductsSlider />
-            <ListProducts/>
+            <ListProductsSlider title={"Iphone"}/>
+            <ListProductsSlider title={"Samsung"}/>
+            <Footer/>
         </div>
     )
 }

@@ -13,10 +13,10 @@ import 'swiper/css/autoplay';
 import './productItems-slider.scss'
 
 
-const ListProductsSlider = () => {
+const ListProductsSlider = (props) => {
     return (
         <Container>
-            <h1 style={{padding:"45px"}} className="text-center">Iphone</h1> 
+            <h1 style={{padding:"45px"}} className="text-center">{props.title}</h1> 
             <Swiper
             breakpoints={{
                 600: {

@@ -1,0 +1,31 @@
+.footer {
+    color: #fff;
+    background-color: #000;
+    padding: 12px;
+    &__info {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__about {
+        width: 60%;
+        p {
+            color: #999;
+        }
+        * {
+            color: #fff;
+        }
+    }
+    &__contact {
+        p{
+            color: #999;
+        }
+        li {
+            list-style-type: none;
+            display: flex;
+            span {
+            margin-right: 10px;
+
+            }
+        }
+    }
+}
