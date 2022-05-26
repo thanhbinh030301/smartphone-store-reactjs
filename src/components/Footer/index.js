@@ -8,7 +8,7 @@ import './Footer.scss'
 import { Container } from 'react-bootstrap'
 const Footer = () => {
     return (
-        <div className="footer mt-4">
+        <div className="footer mt-5">
             <Container className="footer__info mt-3">
                 <div className="footer__about">
                     <h2>Về chúng tôi</h2>

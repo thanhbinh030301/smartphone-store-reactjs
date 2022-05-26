@@ -3,6 +3,7 @@ import CartPage from './pages/CartPage.js';
 import DetailPage from './pages/DetailPage.js';
 
 import Home from './pages/Home.js';
+import ListProductPage from './pages/ListProductPage.js';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element = {<Home/>}/>
         <Route path="/product" element = {<DetailPage/>}/>
         <Route path="/cart" element = {<CartPage/>}/>
+        <Route path="/list-product" element = {<ListProductPage/>}/>
       </Routes>
     </BrowserRouter>
   );
