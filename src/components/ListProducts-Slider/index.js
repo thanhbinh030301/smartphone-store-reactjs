@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Container } from 'react-bootstrap';
 import ProductItem from '../ProductItem';
 
@@ -11,9 +11,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
 import './productItems-slider.scss'
+import { useDispatch, useSelector } from 'react-redux';
+import {getProducts } from '../../redux/Slice/productsSlice';
+import { productsListSlector } from '../../redux/selectors';
 
 
 const ListProductsSlider = (props) => {
+    const listProducts = useSelector(productsListSlector)
+    console.log(listProducts)
     return (
         <Container>
             <h1 style={{padding:"45px"}} className="text-center">{props.title}</h1> 
@@ -37,27 +42,13 @@ const ListProductsSlider = (props) => {
             autoplay = {{delay: 2000}}
             className="productItems-slider"
             >
-                <SwiperSlide>
-                    <ProductItem  />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <ProductItem />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <ProductItem />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <ProductItem />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <ProductItem />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <ProductItem />
-                </SwiperSlide>
+                {listProducts.map(product => (
+                        <SwiperSlide key={product._id}>
+                            <ProductItem product={product}/>
+                        </SwiperSlide>
+                    ))
+                }
             </Swiper>
-
-
         </Container>
        
     )

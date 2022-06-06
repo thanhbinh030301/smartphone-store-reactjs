@@ -6,9 +6,12 @@
 
         img {
             position: absolute;
+            width: 100%;
+            margin: auto;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
+            bottom: 0;
         }
     }
 
@@ -31,19 +34,9 @@
         &-thumb-active {
             border-color: #ff0000;
         }
-    }
-
-    &-wrapper {
-        width: 100%;
-        padding-top: 100%;
-        overflow: hidden;
-        position: relative;
-
         img {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
         }
     }
+    
 }

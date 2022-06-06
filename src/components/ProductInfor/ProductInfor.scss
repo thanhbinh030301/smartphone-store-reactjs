@@ -5,10 +5,25 @@
         border: 2px solid #0066CC ;
     }
 }
-.list-group-item-action:active, 
-.list-group-item-action:hover,
-.list-group-item-action:focus{
-    border: 2px solid #0066CC !important;
+// .list-group-item-action:hover,
+// .list-group-item-action:focus{
+//     border: 2px solid #0066CC !important;
+// }
+.btn-capacity, .btn-color {
+    margin-right: 12px;
+    background-color: #f5f5f5;
+    border: 3px solid #fff;
+    color: #212529 ;
+    
+    &:hover {
+        background-color: #f5f5f5 ;
+        border: 3px solid #0066CC ;
+
+    }
+
+}
+button[role="radio"][aria-checked="true"] {
+        border: 3px solid #0066CC ;
 }
 .old-price {
     font-size: 18px;

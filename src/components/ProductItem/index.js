@@ -1,16 +1,17 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-const ProductItem = () => {
+const ProductItem = (props) => {
+    const {image, name, price, brand, slug} = props.product;
     return(
         <Card className="mb-4">
-            <Card.Img  variant="top" src="https://shopdunk.com/wp-content/uploads/2021/09/iPhone_13_PDP_Position-1A_Color_PRODUCTRED__VN-900x900.jpg" />
+            <Card.Img  variant="top" src={image}/>
             <Card.Body>
-                <Card.Title>Iphone 12</Card.Title>
+                <Card.Title>{name}</Card.Title>
                 <Card.Text>
-                    Giá từ 12000000đ
+                   {price}
                 </Card.Text>
-                <Link to = "/product">
+                <Link to = {"/" + brand + "/" + slug}>
                     <Button>Mua ngay</Button>
                 </Link>
             </Card.Body>

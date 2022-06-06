@@ -4,9 +4,9 @@ import { Navigation, Thumbs } from 'swiper'
 import { Container } from 'react-bootstrap'
 import { useState } from 'react'
 
-const Thumbnail= () => {
+const Thumbnail= ({images}) => {
     const [thumbsSwiper, setThumbsSwiper] = useState();
-
+    console.log("hi")
     return (
         <Container style={{width: '600px'}} className = "sticky-top">
             {/* Swiper Image */}
@@ -19,15 +19,13 @@ const Thumbnail= () => {
             thumbs={{ swiper: thumbsSwiper }}
             className='product-images-slider'
             >
-                <SwiperSlide key="1">
-                    <img src='https://shopdunk.com/wp-content/uploads/2021/09/iPhone_13_PDP_Position-1A_Color_PRODUCTRED__VN-900x900.jpg' alt="product images" />
-                </SwiperSlide>
-                <SwiperSlide key="2">
-                    <img src='https://shopdunk.com/wp-content/uploads/2021/09/iPhone_13_PDP_Position-1A_Color_PRODUCTRED__VN-900x900.jpg' alt="product images" />
-                </SwiperSlide>
-                <SwiperSlide key="3">
-                    <img src='https://shopdunk.com/wp-content/uploads/2021/09/iPhone_13_PDP_Position-1A_Color_PRODUCTRED__VN-900x900.jpg' alt="product images" />
-                </SwiperSlide>
+                {images && images.map((image,index) => {
+                    console.log(index)
+                    return(
+                        <SwiperSlide key={index}>
+                        <img src={image} alt="product images" />
+                    </SwiperSlide>
+                    )})}
             </Swiper>
             
             {/* Thumbnail image */}
@@ -35,25 +33,15 @@ const Thumbnail= () => {
                 onSwiper={setThumbsSwiper}
                 loop={true}
                 spaceBetween={10}
-                slidesPerView={4}
+                slidesPerView={5}
                 modules={[Navigation, Thumbs]}
                 className='product-images-slider-thumbs'
             >
-                <SwiperSlide key='1'>
-                    <div className="product-images-slider-thumbs-wrapper">
-                        <img src='https://shopdunk.com/wp-content/uploads/2021/09/iPhone_13_PDP_Position-1A_Color_PRODUCTRED__VN-900x900.jpg' alt="product images" />
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide key='2'>
-                    <div className="product-images-slider-thumbs-wrapper">
-                        <img src='https://shopdunk.com/wp-content/uploads/2021/09/iPhone_13_PDP_Position-1A_Color_PRODUCTRED__VN-900x900.jpg' alt="product images" />
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide key='3'>
-                    <div className="product-images-slider-thumbs-wrapper">
-                        <img src='https://shopdunk.com/wp-content/uploads/2021/09/iPhone_13_PDP_Position-1A_Color_PRODUCTRED__VN-900x900.jpg' alt="product images" />
-                    </div>
-                </SwiperSlide>
+                {images && images.map((image,index) => (
+                    <SwiperSlide key={index}>
+                        <img src={image} alt="product images" />
+                    </SwiperSlide>
+                ))}
             </Swiper>
         </Container>
     )
