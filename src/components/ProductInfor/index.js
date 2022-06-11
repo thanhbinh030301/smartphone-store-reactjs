@@ -5,6 +5,8 @@ import cartsSlice from '../../redux/Slice/cartsSlice';
 import { formatNumber } from '../../utils/formatNumber';
 import { v4 as uuidv4 } from 'uuid';
 import './ProductInfor.scss'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductInfo = (props) =>{
     
@@ -42,9 +44,11 @@ const ProductInfo = (props) =>{
             quantity: parseInt(quantity)
         }
         dispatch(cartsSlice.actions.addToCart(newCart))
+        toast(`Thêm thành công ${newCart.name}`)
     }
     console.log(capacities)
     return(
+        <>
         <Container>    
             {/* Title and price */}
             <div className="wrap-container p-4">
@@ -121,6 +125,8 @@ const ProductInfo = (props) =>{
                 </ul>
             </Container>
         </Container>
+        <ToastContainer/>
+        </>
     )
 }
 
