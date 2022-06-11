@@ -7,7 +7,7 @@ import Header from '../components/Header/index';
 import { formatNumber } from '../utils/formatNumber';
 import { cartSelector, userSelector } from '../redux/selectors';
 import Login from '../components/Login';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { createOrder } from '../redux/Slice/cartsSlice'
 import { unwrapResult } from '@reduxjs/toolkit';
 // import { getCarts } from '../redux/Slice/cartsSlice';
@@ -17,35 +17,39 @@ const CartPage = () => {
     const dispatch = useDispatch();
     const carts = useSelector(cartSelector);
     const user = useSelector(userSelector);
+    const navigate = useNavigate();
     const [showLogin, setShowLogin] = useState(false);
     const totalPrice = carts.reduce((a,b)=> a+b.price*b.quantity, 0)
     const handlePurchase = async ()=> {
         if(!localStorage.getItem('user')){
             setShowLogin(true);
+        }else{
+            const productsOrder = carts.map(product => ({
+                productId: product.productId,
+                name: product.name,
+                quantity: product.quantity,
+                color: product.color,
+                capacity: product.capacity,
+                total: product.price * product.quantity
+            }
+            ))
+            const dataOrder = {
+                userId: user._id,
+                userName: user.name,
+                address: user.address,
+                products: productsOrder,
+                totalPrice: totalPrice - 1000000 //giam gia
+            }
+            console.log(JSON.stringify(dataOrder))
+            try {
+                const resultAction = await dispatch(createOrder(dataOrder));
+                unwrapResult(resultAction);
+            } catch (error) {
+                console.log(error)
+            }
+            navigate("/orderSuccess");
         }
-        const productsOrder = carts.map(product => ({
-            productId: product.productId,
-            name: product.name,
-            quantity: product.quantity,
-            color: product.color,
-            capacity: product.capacity,
-            total: product.price * product.quantity
-        }
-        ))
-        const dataOrder = {
-            userId: user._id,
-            userName: user.name,
-            address: user.address,
-            products: productsOrder,
-            totalPrice: totalPrice - 1000000 //giam gia
-        }
-        console.log(JSON.stringify(dataOrder))
-        try {
-            const resultAction = await dispatch(createOrder(dataOrder));
-            unwrapResult(resultAction);
-        } catch (error) {
-            console.log(error)
-        }
+       
     }
     return (
             <Container style={{minHeight: "70vh"}}>
@@ -86,9 +90,7 @@ const CartPage = () => {
                                                         <span>{formatNumber(totalPrice-1000000)}₫</span>
                                                     </p>
                                                 </div>
-                                                <Link to = '/orderSuccess'>
                                                     <Button className="btn-purchase" onClick={handlePurchase} to>Tiến hành thanh toán</Button>
-                                                </Link>
                                             </Col>         
                                         </Row>
                                     </div>

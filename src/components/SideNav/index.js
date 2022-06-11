@@ -3,11 +3,15 @@ import './SideNav.scss';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import SideContentProduct from '../SideContentProduct';
 import SideContentCart from '../SideContentCart';
+import { useLocation } from 'react-router-dom';
 const SideNav = ()=>{
 
+    const search = useLocation().search
+    const searchParams = new URLSearchParams(search);
+    const q = searchParams.get('key');
     return(  
         <div style={{marginTop: "200px", height: "140vh"}}>    
-        <Tab.Container id="left-tabs-example" defaultActiveKey={"first"} >
+        <Tab.Container id="left-tabs-example" activeKey={q} >
             <Row>
                 <Col sm={3}>
                     <div className = "sideNav">

@@ -25,9 +25,9 @@ const Logged = (props) => {
                         {props.user.admin
                         ?(
                             <>
-                                <NavDropdown.Item as={Link} to="/manager?key=second">Danh sách sản phẩm</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/manager?key=first">Danh sách sản phẩm</NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item as={Link} to="/manager?key=first">Danh sách đơn hàng</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/manager?key=second">Danh sách đơn hàng</NavDropdown.Item>
                                 <NavDropdown.Divider />
                              </>
                         ):(
