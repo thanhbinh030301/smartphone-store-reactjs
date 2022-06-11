@@ -23,8 +23,8 @@ const Thumbnail= ({images}) => {
                     console.log(index)
                     return(
                         <SwiperSlide key={index}>
-                        <img src={image} alt="product images" />
-                    </SwiperSlide>
+                            <img src={image} alt="product images" />
+                        </SwiperSlide>
                     )})}
             </Swiper>
             

@@ -20,7 +20,7 @@ const Footer = () => {
                     <a href="#"><TiSocialFacebook fontSize="40px"></TiSocialFacebook></a>
                 </div>
                 <div className="footer__contact">
-                    <ul class="info">
+                    <ul className="info">
                         <li>
                             <span><FaMapMarkerAlt></FaMapMarkerAlt></span>
                             <p>Đường Số 1<br />

@@ -1,25 +1,45 @@
-import React, {useState } from 'react'
-import { BsSearch, BsCart, BsFillPersonFill } from "react-icons/bs";
-import { Navbar, Container, Nav, Badge, Dropdown, NavDropdown } from 'react-bootstrap'
-import logo from '../../logo.svg'
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { BsFillPersonFill } from "react-icons/bs";
+import { Nav, NavDropdown } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss'
-import Login from '../Login';
+import { useDispatch } from 'react-redux';
+import authSlice from '../../redux/Slice/authSlice';
 
 
-const Logged = () => {
+const Logged = (props) => {
+    const navigate = useNavigate();
     const navDropdownTitle = ( 
-        <button className="text-white btn-account">
-            <BsFillPersonFill fontSize='20px'/><span>Hi, Binh</span>
+        <button className="text-white btn-account cropLongText">
+            <BsFillPersonFill/><span className="">Hi, {props.user.name.split(' ')[(props.user.name.split(' ').length - 1)]}</span>
         </button>)
+    const dispatch = useDispatch();
+    console.log(props.user);
+    const handleLogout = () => {
+        navigate("/");
+        dispatch(authSlice.actions.logout());
+    }
     return (                                             
-            <Nav.Link>
+            <Nav.Link className="p-0">
                     <NavDropdown title={navDropdownTitle}>
-                        <NavDropdown.Item href="#action/3.1">Thông tin cá nhân</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.2">Đơn hàng</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4" style={{color: 'red'}}>Đăng Xuất</NavDropdown.Item>
+                        {props.user.admin
+                        ?(
+                            <>
+                                <NavDropdown.Item as={Link} to="/manager?key=second">Danh sách sản phẩm</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item as={Link} to="/manager?key=first">Danh sách đơn hàng</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                             </>
+                        ):(
+                            <>
+                            <NavDropdown.Item as={Link} to="/user">Thông tin cá nhân</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item as={Link} to="/user">Đơn hàng</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                        </>
+                        )}
+                       
+                        <NavDropdown.Item href="#action/3.4" style={{color: 'red'}} onClick={handleLogout}>Đăng Xuất</NavDropdown.Item>
                     </NavDropdown>
             </Nav.Link>
         

@@ -4,23 +4,51 @@ import { useDispatch, useSelector } from 'react-redux';
 import CartItem from '../components/CartItem';
 import Footer from '../components/Footer';
 import Header from '../components/Header/index';
-import { formatNumber } from '../constant';
-import { cartSlector } from '../redux/selectors';
-import { getCarts } from '../redux/Slice/cartsSlice';
+import { formatNumber } from '../utils/formatNumber';
+import { cartSelector, userSelector } from '../redux/selectors';
+import Login from '../components/Login';
+import { Link } from 'react-router-dom';
+import { createOrder } from '../redux/Slice/cartsSlice'
+import { unwrapResult } from '@reduxjs/toolkit';
+// import { getCarts } from '../redux/Slice/cartsSlice';
 
 
 const CartPage = () => {
     const dispatch = useDispatch();
-    const carts = useSelector(cartSlector);
-    console.log("carts", carts)
-    useEffect(()=>{
-        dispatch(getCarts());
-        console.log("cart-page re-render useEffect")
-    },[dispatch])
-    console.log("cart-page re-render")
-    const totalPrice = carts.reduce((a,b)=> a+b.price, 0)
+    const carts = useSelector(cartSelector);
+    const user = useSelector(userSelector);
+    const [showLogin, setShowLogin] = useState(false);
+    const totalPrice = carts.reduce((a,b)=> a+b.price*b.quantity, 0)
+    const handlePurchase = async ()=> {
+        if(!localStorage.getItem('user')){
+            setShowLogin(true);
+        }
+        const productsOrder = carts.map(product => ({
+            productId: product.productId,
+            name: product.name,
+            quantity: product.quantity,
+            color: product.color,
+            capacity: product.capacity,
+            total: product.price * product.quantity
+        }
+        ))
+        const dataOrder = {
+            userId: user._id,
+            userName: user.name,
+            address: user.address,
+            products: productsOrder,
+            totalPrice: totalPrice - 1000000 //giam gia
+        }
+        console.log(JSON.stringify(dataOrder))
+        try {
+            const resultAction = await dispatch(createOrder(dataOrder));
+            unwrapResult(resultAction);
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
-            <Container>
+            <Container style={{minHeight: "70vh"}}>
                 <h1 className="text-center" style={{marginTop: "100px"}}>Giỏ hàng</h1>
 
                 <div className="cart">
@@ -32,7 +60,7 @@ const CartPage = () => {
                                 </Card.Header>
                                 <Card.Body >
                                     {carts && carts.map(cart => (
-                                        <CartItem cart={cart}/>
+                                        <CartItem key={cart.id} cart={cart}/>
                                     ))}
                                     <div className="cart__center">
                                         <Row>
@@ -51,13 +79,16 @@ const CartPage = () => {
                                                     </p>
                                                     <p>
                                                         <span>Giảm:</span>
-                                                        <span>19.000.000₫</span>
+                                                        <span>{formatNumber(1000000)}₫</span>
                                                     </p>
                                                     <p className="font-weight-bold">
                                                         <span>Cần thanh toán:</span>
-                                                        <span>{formatNumber(totalPrice)}₫</span>
+                                                        <span>{formatNumber(totalPrice-1000000)}₫</span>
                                                     </p>
                                                 </div>
+                                                <Link to = '/orderSuccess'>
+                                                    <Button className="btn-purchase" onClick={handlePurchase} to>Tiến hành thanh toán</Button>
+                                                </Link>
                                             </Col>         
                                         </Row>
                                     </div>
@@ -71,7 +102,8 @@ const CartPage = () => {
                         }
 
                     </Card> 
-                </div>               
+                </div>       
+                <Login show={setShowLogin} showLogin={showLogin}/>
             </Container>
     )
 }

@@ -1,50 +1,61 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { NavItem } from "react-bootstrap";
-import * as api from '../../api';
+import cartApi from "../../api/cartApi";
 
+const carts = JSON.parse(localStorage.getItem('carts'));
+
+export const createOrder = createAsyncThunk('carts/orderCart', async (data) => {
+    console.log(data);
+    const res = await cartApi.createCart(data);
+    return res;
+});
+export const getOrders = createAsyncThunk('carts/getOrders', async () => {
+    const res = await cartApi.getCarts();
+    return res;
+});
+export const getOrdersByUser = createAsyncThunk('carts/getCartsByUser', async (userId) => {
+    const res = await cartApi.getCartsByUser(userId);
+    console.log(res)
+    return res;
+})
 const cartsSlice = createSlice({
     name: 'cartsList',
     initialState: {
-        status: null, 
-        carts: []
+        carts: carts || [],
+        orderList: [],
+        orderListUser: [],
     },
     reducers: {
-
+        addToCart: (state, action)=>{
+            console.log(action.payload);
+            const cartItem = state.carts.find(cart => cart.name===action.payload.name&&cart.color===action.payload.color&&cart.capacity===action.payload.capacity)
+            if(cartItem){
+                cartItem.quantity += parseInt(action.payload.quantity);
+            }else{
+                state.carts.push(action.payload);
+            }
+            localStorage.setItem('carts',JSON.stringify(state.carts));
+        },
+        deleteCart: (state, action) => {
+            state.carts = state.carts.filter(cart => cart.id!==action.payload)
+            localStorage.setItem('carts', JSON.stringify(state.carts));
+        }
     },
-    extraReducers: (builder) =>{
-        builder
-            .addCase(getCarts.pending, (state, action) => {
-                state.status = 'pending'
-            })
-            .addCase(getCarts.fulfilled, (state, action) => {
-                state.status = 'success'
-                state.carts = action.payload
-            })
-            .addCase(addToCart.fulfilled, (state, action) => {
-                state.status = 'success'
-                state.carts.push(action.payload)
-            })
-            .addCase(deleteCart.fulfilled, (state, action) => {
-                state.status = 'success'
-                console.log(action.payload)
-                state.carts = state.carts.filter(cart => cart._id !== action.payload)
-            })
+    extraReducers: {
+        [getOrders.fulfilled]: (state, action) => {
+            state.orderList = action.payload
+        },
+        [createOrder.fulfilled]: (state, action) => {
+            localStorage.removeItem('carts');
+            state.carts.splice(0, state.carts.length);
+        },
+        [getOrdersByUser.fulfilled]: (state, action) => {
+            state.orderListUser = action.payload
+        }
     }
 })
 
-export const getCarts = createAsyncThunk('carts/getCarts', async () => {
-    const res = await api.getCarts();
-    return res.data;
-});
-export const addToCart = createAsyncThunk('carts/addToCart', async (item) => {
-    const res = await api.addToCart(item);
-    return res.data;
-});
-export const deleteCart = createAsyncThunk('carts/deleteCart', async (id) => {
-    const res = await api.deleteCart(id);
-    console.log("res",res)
-    return res.data;
-});
+
+
 
 
 export default cartsSlice;

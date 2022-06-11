@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { formatNumber } from '../../constant';
-import { deleteCart, getCarts } from '../../redux/Slice/cartsSlice';
+import cartsSlice from '../../redux/Slice/cartsSlice';
+import { formatNumber } from '../../utils/formatNumber';
+// import { deleteCart, getCarts } from '../../redux/Slice/cartsSlice';
 import "./CartItem.scss"
 
 const CartItem = (props) => {
@@ -12,7 +13,8 @@ const CartItem = (props) => {
         setQuantity(e.target.value)
     }
     const handleClickRemove = (e) =>{
-        dispatch(deleteCart(props.cart._id))
+        console.log(props.cart.id);
+        dispatch(cartsSlice.actions.deleteCart(props.cart.id));
     }
     return (
         <div className = "product-cart">
@@ -40,7 +42,7 @@ const CartItem = (props) => {
                 </Col>
                 <Col md={3}>
                     <div className="product-cart__price">
-                        <p>{formatNumber(props.cart.price)}₫</p>
+                        <p>{formatNumber(props.cart.price*quantity)}₫</p>
                     </div>      
                 </Col>
             </Row>     

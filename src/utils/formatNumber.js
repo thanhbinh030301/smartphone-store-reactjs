@@ -1,6 +1,4 @@
 export function formatNumber (n) {
-    if (n < 0) { throw 'must be non-negative: ' + n; } 
-    if (n === 0) { return '0'; }
     
     var output = [];
     

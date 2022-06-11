@@ -18,7 +18,8 @@ import { productsListSlector } from '../../redux/selectors';
 
 const ListProductsSlider = (props) => {
     const listProducts = useSelector(productsListSlector)
-    console.log(listProducts)
+    const products = [...listProducts].sort(() => 0.5 - Math.random()).slice(0, 10) // get 10 random products
+    console.log(products)
     return (
         <Container>
             <h1 style={{padding:"45px"}} className="text-center">{props.title}</h1> 
@@ -42,7 +43,7 @@ const ListProductsSlider = (props) => {
             autoplay = {{delay: 2000}}
             className="productItems-slider"
             >
-                {listProducts.map(product => (
+                {products.map(product => (
                         <SwiperSlide key={product._id}>
                             <ProductItem product={product}/>
                         </SwiperSlide>

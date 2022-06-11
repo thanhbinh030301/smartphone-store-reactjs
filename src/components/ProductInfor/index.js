@@ -1,29 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonGroup, Col, Container, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { formatNumber } from '../../constant';
-import { addToCart } from '../../redux/Slice/cartsSlice';
+import cartsSlice from '../../redux/Slice/cartsSlice';
+import { formatNumber } from '../../utils/formatNumber';
+import { v4 as uuidv4 } from 'uuid';
 import './ProductInfor.scss'
 
 const ProductInfo = (props) =>{
+    
     const dispatch = useDispatch();
-    const { pathname } = useLocation();
-    useEffect(() => {
-            window.scrollTo(0, 0);
-    }, [pathname]);
     const {name, price, tskt, capacities, image, _id} = props.product;
     const [priceItem, setPriceItem] = useState(price);
-    console.log("price", priceItem)
     const [capacity, setCapacity] = useState("");
-    const [color, setColor] = useState();
-    console.log("currentCapacity", capacity);
+    const [color, setColor] = useState("");
     const arrColorProduct = ['gray', 'black', 'blue', 'green', 'purple', 'red'];
     const [quantity, setquantity] = useState(1);
     const handleInputChange = (e) => {
         setquantity(e.target.value)
     }
-
     const handleCapacityClick = (e) => {
         const price = capacities.find(item => item.capacity === e.target.textContent).price
         console.log(e.target.textContent);
@@ -35,19 +29,30 @@ const ProductInfo = (props) =>{
         setColor(e.target.style.backgroundColor)
     }
     const handleAddToCart = (e) => {
-        const currentProduct = {_id: _id||"", color: color||"", quantity: quantity||0, price: price||0, image: image||"", capacity: capacity||"", name: name||"", slug: props.product.slug||"",brand: props.product.brand||""};
-        dispatch(addToCart(currentProduct));
-        console.log(currentProduct)
+        console.log(props)
+        const newCart = {
+            id: uuidv4(),
+            productId: props.product._id,
+            slug: props.product.slug,
+            name: props.product.name,
+            image: props.product.image,
+            color: color,
+            capacity: capacity,
+            price: priceItem,
+            quantity: parseInt(quantity)
+        }
+        dispatch(cartsSlice.actions.addToCart(newCart))
     }
+    console.log(capacities)
     return(
-        <Container>
+        <Container>    
             {/* Title and price */}
             <div className="wrap-container p-4">
                 <Row>
                     <h2>{name}</h2>
                     <p>
-                        <span className="old-price">{priceItem+500000 ? formatNumber(priceItem+500000) : formatNumber(price+500000)}₫</span>
-                        <span className="new-price">{priceItem ? formatNumber(priceItem) : formatNumber(price)}₫</span>
+                        <span className="old-price">{formatNumber(priceItem+500000)}₫</span>
+                        <span className="new-price">{formatNumber(priceItem)}₫</span>
                     </p>
                 </Row>
                 {/* Capacity */}
@@ -59,10 +64,12 @@ const ProductInfo = (props) =>{
                             </button >
                         ))}
                     </Col>
+                    <Col>
+                    </Col>
                 </Row>
                 {/* Color */}
                 <Row className="mt-5">
-                    <Col>
+                    <Col className="arr-color">
                                 {arrColorProduct.map(value => {
                                     return (
                                         <button key={value} className="rounded-circle text-center btn-color" 
@@ -84,14 +91,14 @@ const ProductInfo = (props) =>{
                         </input>
                     </Col>
                     <Col className="col-auto">
-                        <Button onClick={handleAddToCart}>Thêm vào giỏ hàng</Button>
+                        <Button disabled={(capacities)?(!color):(!color&&capacity)} onClick={handleAddToCart}>Thêm vào giỏ hàng</Button>
                     </Col>
                     <Col className="col-auto">
                         <Button>Mua ngay</Button>
                     </Col>
                 </Row>
             </div>
-            <Container className = "wrap-container mt-5">
+            <Container className = "wrap-container mt-5 info-promote">
                 <p className = "pt-4">Khuyến mãi</p>
                 <hr className = "line"></hr>
                 <ul>

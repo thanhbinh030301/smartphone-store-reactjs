@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import Footer from '../components/Footer'
-import Header from '../components/Header/index'
+import { useLocation } from 'react-router-dom'
 import ListProductsSlider from '../components/ListProducts-Slider'
 import Slider from '../components/Slider'
-import { getProducts } from '../redux/Slice/productsSlice'
 
 
 
 const Home = () => {
+    useEffect(() => {
+            window.scrollTo({top: 0, left:0, behavior: "instant"});
+    });
     return (
         <div>
             <Slider/>
-            <ListProductsSlider title={"Iphone"}/>
-            <ListProductsSlider title={"Samsung"}/>
+            <ListProductsSlider title={"Sản phẩm mới"}/>
+            <ListProductsSlider title={"Sản phẩm bán chạy"}/>
         </div>
     )
 }

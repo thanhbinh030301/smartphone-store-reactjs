@@ -1,12 +1,13 @@
 .search-bar {
-    width: 60%;
     background-color: white;
-    border-radius: 15px;
+    border-radius: 100px;
     padding: 4px;
     display: flex;
     align-items: center;
     input[type="search"] {
+        border-radius: 100px;
         width: 95%;
+        margin-left: 10px;
         border: none;
         outline: none;
     }
@@ -20,11 +21,14 @@
 }
 
 // Medium devices (tablets, 768px and up)
-@media (min-width: 768px) { 
+@media (min-width: 768px) and (max-width: 991px) { 
     .search-bar {
         position: absolute;
-        left: 60%;
+        left: 52%;
         width: 200px;
+    }
+    .cropLongText {
+        width: 0px!important; 
     }
  }
 
@@ -32,8 +36,8 @@
 @media (min-width: 992px) { 
     .search-bar {
         position: absolute;
-        left: 50%;
-        width: 400px;
+        left: 42%;
+        width: 300px;
     }
  }
 
@@ -47,7 +51,7 @@
  }
 @media (min-width: 1400px) { 
     .search-bar {
-        width: 30%;
+        width: 25%;
         position: absolute;
         left: 800px;
     }
@@ -58,4 +62,10 @@
  }
  .btn-account:hover{
     color: black;
+ }
+ .cropLongText{
+    overflow:hidden; 
+    white-space:nowrap; 
+    text-overflow:ellipsis; 
+    width: 140px; 
  }

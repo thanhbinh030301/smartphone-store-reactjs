@@ -1,0 +1,9 @@
+
+.sideNav{
+    background-color: #ccc;
+    &-item{
+        cursor:pointer;
+        color: #fff;
+        font-size: 20px;
+    }
+}
